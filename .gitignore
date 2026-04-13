@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # Prisma client generated files
-prisma/generated/
+src/generated
 
 # Environment 
 .env

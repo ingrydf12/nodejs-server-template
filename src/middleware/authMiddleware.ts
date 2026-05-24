@@ -3,8 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { z } from "zod";
 import { logger } from "../config/logger.js";
 import { AuthRequest } from "../types/authRequest.js";
-import { Role } from "../models/user.js";
-
+import { Role } from "../generated/prisma/index.js";
 export const jwtPayloadSchema = z.object({
   id: z.number(),
   role: z.nativeEnum(Role),
@@ -25,6 +24,7 @@ export const authMiddleware = (
 
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) {
+    logger.warn("Token não fornecido.");
     return res.status(401).json({ error: "Token não fornecido." });
   }
 
